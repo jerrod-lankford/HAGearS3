@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/HomeAssistant" version="1.0.0" viewmodes="maximized">
+    <tizen:application id="LhGPLdV8nG.HomeAssistant" package="LhGPLdV8nG" required_version="2.3.2"/>
+    <author email="jllankfo@ncsu.edu">Jerrod Lankford</author>
+    <content src="index.html"/>
+    <feature name="http://tizen.org/feature/screen.size.normal"/>
+    <icon src="homeassistant.png"/>
+    <license>MIT</license>
+    <name>HomeAssistant</name>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+    <tizen:profile name="wearable"/>
+    <tizen:setting hwkey-event="enable"/>
+</widget>
