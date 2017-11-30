@@ -4,34 +4,39 @@ var ViewMetadata = {
 		title: 'Switches',
 		selectedState: 'on',
 		select: HAServices.switchOn,
-		deselect: HAServices.switchOff
+		deselect: HAServices.switchOff,
+		defaultIcon: 'mdi-flash'
 	},
 	'light': {
 		name: 'light',
 		title: 'Lights',
 		selectedState: 'on',
 		select: HAServices.lightOn,
-		deselect: HAServices.lightOff
+		deselect: HAServices.lightOff,
+		defaultIcon: 'mdi-lightbulb'
 	},
 	'script': {
 		name: 'script',
 		title: 'Scripts',
 		selectedState: 'on',
 		select: HAServices.scriptOn,
-		deselect: HAServices.scriptOff
+		deselect: HAServices.scriptOff,
+		defaultIcon: 'mdi-file-document'
 	},
 	'cover': {
 		name: 'cover',
 		title: 'Covers',
 		selectedState: 'closed',
 		select: HAServices.coverClose,
-		deselect: HAServices.coverOpen
+		deselect: HAServices.coverOpen,
+		defaultIcon: 'mdi-blinds'
 	},
 	'group': {
 		name: 'group',
 		title: 'Groups',
 		selectedState: 'on',
 		select: HAServices.groupOn,
-		deselect: HAServices.groupOff
+		deselect: HAServices.groupOff,
+		defaultIcon: 'mdi-account-multiple'
 	}
 };
