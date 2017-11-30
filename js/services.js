@@ -1,7 +1,7 @@
 var HAServices = (function() {
  
-	var URL = "https://yoururl/api/";
-	var PASSWORD = "changeme"
+	var URL = "https://yoururlhere/api/";
+	var PASSWORD = "password";
 	
 	var DEFAULT_HEADERS =  {
 		'Content-Type': 'application/json',
