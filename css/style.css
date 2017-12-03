@@ -22,6 +22,16 @@ body {
 	color:#fff;
 }
 
+.hidden {
+	display: none;
+}
+
+.ui-page .ui-footer.ui-bottom-button {
+    position: relative !important;
+    height: 100px;
+    overflow: hidden;
+}
+
 .ui-listview .li-has-toggle .icon-container {
 	position: absolute;
 	right: 30px;
@@ -66,5 +76,22 @@ body {
 .ui-listview li.selected .cover-icon-container,
 .ui-listview li.selected .group-icon-container {
 	background: #ed3838;
+}
+
+#setup header {
+	margin-top: -20px;
+}
+
+.setup-form  {
+	padding-left: 20px;
+	padding-right: 20px
+}
+
+.setup-form input {
+	width: 100%;
+}
+
+.setup-form button {
+	margin-top: 20px;
 }
 

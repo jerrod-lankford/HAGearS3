@@ -1,126 +1,95 @@
 var HAServices = (function() {
- 
-	var URL = "https://yoururlhere/api/";
-	var PASSWORD = "password";
 	
-	var DEFAULT_HEADERS =  {
-		'Content-Type': 'application/json',
-		'x-ha-access': PASSWORD
+	// Private function for building the service post request
+	function HAServices() {
+	    this.url = localStorage.getItem('ha-url');
+		this.password = localStorage.getItem('ha-pass');
+	}
+	
+	HAServices.prototype.updateCredentials = function(url, password){
+		if (url.endsWith("/")) {
+			url = url.slice(0,url.length-1);
+		}
+		localStorage.setItem('ha-url', url);
+		localStorage.setItem('ha-pass', password);
+		
+		this.url = url;
+		this.password = password;
 	};
 	
-	function getEntities(success, error) {
+	HAServices.prototype.getCredentials = function() {
+		return {
+			url: this.url,
+			password: this.password
+		}
+	};
+	
+	HAServices.prototype.getEntities = function(success, error) {
 		$.ajax({
-			url: URL + "states",
+			url: this.url + "/api/states",
 			headers: {
-				'x-ha-access': PASSWORD
+				'x-ha-access': this.password
 			},
 			success: success,
 			error: error
 		});
-	}
-	
-	function switchOn(entity_id) {
-		$.ajax({
-			type: "POST",
-			url: URL + "services/switch/turn_on",
-			headers: DEFAULT_HEADERS,
-			data: JSON.stringify({"entity_id": entity_id})
-		});		
-	}
-	
-	function switchOff(entity_id) {
-		$.ajax({
-			type: "POST",
-			url: URL + "services/switch/turn_off",
-			headers: DEFAULT_HEADERS,
-			data: JSON.stringify({"entity_id": entity_id})
-		});
-	}
-	
-	function lightOn(entity_id) {
-		$.ajax({
-			type: "POST",
-			url: URL + "services/light/turn_on",
-			headers: DEFAULT_HEADERS,
-			data: JSON.stringify({"entity_id": entity_id})
-		});
-	}
-	
-	function lightOff(entity_id) {
-		$.ajax({
-			type: "POST",
-			url: URL + "services/light/turn_off",
-			headers: DEFAULT_HEADERS,
-			data: JSON.stringify({"entity_id": entity_id})
-		});
-	}
-	
-	function scriptOn(entity_id) {
-		$.ajax({
-			type: "POST",
-			url: URL + "services/script/turn_on",
-			headers: DEFAULT_HEADERS,
-			data: JSON.stringify({"entity_id": entity_id})
-		});
-	}
-	
-	function scriptOff(entity_id) {
-		$.ajax({
-			type: "POST",
-			url: URL + "services/script/turn_off",
-			headers: DEFAULT_HEADERS,
-			data: JSON.stringify({"entity_id": entity_id})
-		});
-	}
-	
-	function coverOpen(entity_id) {
-		$.ajax({
-			type: "POST",
-			url: URL + "services/cover/open_cover",
-			headers: DEFAULT_HEADERS,
-			data: JSON.stringify({"entity_id": entity_id})
-		});
-	}
-	
-	function coverClose(entity_id) {
-		$.ajax({
-			type: "POST",
-			url: URL + "services/cover/close_cover",
-			headers: DEFAULT_HEADERS,
-			data: JSON.stringify({"entity_id": entity_id})
-		});
-	}
-	
-	function groupOn(entity_id) {
-		$.ajax({
-			type: "POST",
-			url: URL + "services/homeassistant/turn_on",
-			headers: DEFAULT_HEADERS,
-			data: JSON.stringify({"entity_id": entity_id})
-		});
-	}
-	
-	function groupOff(entity_id) {
-		$.ajax({
-			type: "POST",
-			url: URL + "services/homeassistant/turn_off",
-			headers: DEFAULT_HEADERS,
-			data: JSON.stringify({"entity_id": entity_id})
-		});
-	}
-	
-	// Exports
-	return {
-		getEntities: getEntities,
-		switchOn: switchOn,
-		switchOff: switchOff,
-		lightOn: lightOn,
-		lightOff: lightOff,
-		scriptOn: scriptOn,
-		scriptOff: scriptOff,
-		coverOpen: coverOpen,
-		coverClose: coverClose,
-		groupOn: groupOn,
-		groupOff: groupOff
 	};
+	
+	// Function should only be used privately
+	HAServices.prototype.buildPostRequest = function(path, entity_id) {
+		
+		return {
+			type: "POST",
+			url: this.url + "/api/services/" + path,
+			data: JSON.stringify({"entity_id": entity_id}),
+			headers: {
+				'Content-Type': 'application/json',
+				'x-ha-access': this.password
+			}
+		};
+	}
+	
+	
+	HAServices.prototype.switchOn = function(entity_id) {
+		$.ajax(this.buildPostRequest("switch/turn_on", entity_id));	
+	};
+	
+	HAServices.prototype.switchOff = function (entity_id) {
+		$.ajax(this.buildPostRequest("switch/turn_off", entity_id));	
+	};
+	
+	HAServices.prototype.lightOn = function(entity_id) {
+		$.ajax(this.buildPostRequest("light/turn_on", entity_id));	
+	};
+	
+	HAServices.prototype.lightOff = function(entity_id) {
+		$.ajax(this.buildPostRequest("light/turn_off", entity_id));	
+	};
+	
+	HAServices.prototype.scriptOn = function(entity_id) {
+		$.ajax(this.buildPostRequest("script/turn_on", entity_id));	
+	};
+	
+	HAServices.prototype.scriptOff = function (entity_id) {
+		$.ajax(this.buildPostRequest("script/turn_off", entity_id));	
+	};
+	
+	HAServices.prototype.coverOpen = function(entity_id) {
+		$.ajax(this.buildPostRequest("cover/open_cover", entity_id));	
+	};
+	
+	HAServices.prototype.coverClose = function(entity_id) {
+		$.ajax(this.buildPostRequest("cover/close_cover", entity_id));	
+	};
+	
+	HAServices.prototype.groupOn = function(entity_id) {
+		$.ajax(this.buildPostRequest("homeassistant/turn_on", entity_id));	
+	};
+	
+	HAServices.prototype.groupOff = function(entity_id) {
+		$.ajax(this.buildPostRequest("homeassistant/turn_off", entity_id));	
+	};
+	
+	return new HAServices();
+	
 })();

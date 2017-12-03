@@ -6,7 +6,7 @@
     <feature name="http://tizen.org/feature/screen.size.normal"/>
     <icon src="homeassistant.png"/>
     <license>MIT</license>
-    <name>HomeAssistant</name>
+    <name>Home Assistant</name>
     <tizen:privilege name="http://tizen.org/privilege/internet"/>
     <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
     <tizen:profile name="wearable"/>

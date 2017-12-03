@@ -25,6 +25,10 @@
 				<li><a class="nav-link" href="#" data-id="group">Groups</a></li>
 			</ul>
 		</div>
+		<footer class="ui-footer ui-bottom-button">
+			<button id="setup-button" class="ui-btn"><div class="mdi mdi-settings mdi-48px"></div></button>
+		</footer>
+		<div id="main-spinner" class="ui-processing ui-processing-full-size hidden"></div>
 	</div>
 	<!-- Entities page -->
 	<div class="ui-page" id="entities">
@@ -35,6 +39,32 @@
 			<ul id="entity-list" class="ui-listview">
 				
 			</ul>
+		</div>
+		<footer class="ui-footer ui-bottom-button">
+			<button id="refresh-button" class="ui-btn"><div class="mdi mdi-refresh mdi-48px"></div></button>
+		</footer>
+		<div id="entity-spinner" class="ui-processing ui-processing-full-size hidden"></div>
+	</div>
+	<div class="ui-page" id="setup">
+		<header class="ui-header">
+			<h2 class="ui-title">Setup</h2>
+		</header>
+		<div class="ui-content">
+			<form action="" method="" class="setup-form">
+			   <label>HA Url: <input id="setup-url" type="url" placeholder="https://example.org"/></label>
+			   <label>Password: <input id="setup-password" type="password"/></label>
+			</form>
+		</div>
+	   <footer class="ui-footer ui-bottom-button">
+           <button id="setup-save-button" class="ui-btn">Save</button>
+	   </footer>
+	</div>
+		<div id="error-popup" class="ui-popup">
+		<div id="error-popup-contents" class="ui-popup-content">
+			
+		</div>
+		<div class="ui-popup-footer ui-bottom-button">
+			<a id="error-popup-cancel" href="#" class="ui-btn" data-rel="back">OK</a>
 		</div>
 	</div>
 	<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>

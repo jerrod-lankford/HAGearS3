@@ -19,12 +19,21 @@ var ViewCreator = (function() {
 	 */
 	function ViewCreator(entities) {
 		this.entities = entities;
+		this.currentPage = "";
 	}
 	
 	ViewCreator.prototype.create = function(metadata) {
 		createDom(this.entities, metadata);
 		registerEventHandlers(metadata.select, metadata.deselect);
+		this.currentPage = metadata.name;
 	};
+	
+	ViewCreator.prototype.update = function(entities) {
+		this.entities = entities;
+		if (this.currentPage) {
+			this.create(ViewMetadata[this.currentPage]);
+		}
+	}
 
 	function createDom(entities, metadata) {
 		var filterString = metadata.name + ".";
@@ -54,10 +63,12 @@ var ViewCreator = (function() {
 			// We have to flip the value since the input has changed when we get the event
 			var selected = li.classList.contains("selected");
 			if (selected) {
-				deselect(entity_id);
+				// TODO FIX makes assumptions that deselect is a function that needs to be invoked in the context of the services class
+				deselect.call(HAServices, entity_id);
 				li.classList.remove("selected");
 			} else {
-				select(entity_id);
+				// TODO FIX makes assumptions that deselect is a function that needs to be invoked in the context of the services class
+				select.call(HAServices, entity_id);
 				li.classList.add("selected");
 			}
 		});
