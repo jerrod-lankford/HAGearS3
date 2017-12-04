@@ -4,7 +4,7 @@ var ViewCreator = (function() {
 	var TEMPLATE = [
 		'<li class="entity-list-item li-has-toggle %1" data-entity-id="%2">',
 			'<label>',
-		 			'<div class="name-container">',
+		 			'<div class="name-container ui-marquee ui-marquee-gradient">',
 						"%3",
 					'</div>',
 				'<div class="icon-container %4-icon-container">',
@@ -32,6 +32,12 @@ var ViewCreator = (function() {
 		this.entities = entities;
 		if (this.currentPage) {
 			this.create(ViewMetadata[this.currentPage]);
+			
+			// This is necessary since we blow the dom away. It makes the snaplist work again
+			// The snaplist meaning, it selects an item as you scroll. Also handles marquee scrolling
+			var list = document.getElementById('entity-list');
+			snapList = tau.widget.SnapListview(list);
+			snapList.refresh();
 		}
 	}
 

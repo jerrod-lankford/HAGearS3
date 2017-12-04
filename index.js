@@ -12,7 +12,6 @@ $(function () {
 	});
 	
 	$('#setup-save-button').click(function() {
-		debugger;
 		var url = $('#setup-url').val();
 		var password = $('#setup-password').val();
 		

@@ -61,6 +61,10 @@ body {
 	text-align: left;
 }
 
+.ui-listview li div.ui-snap-listview-selected .ui-marquee {
+	-webkit-transition: all ease 1s;
+}
+
 .ui-listview li.selected .light-icon-container {
     background: rgb(253, 216, 53);
 }
