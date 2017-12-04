@@ -18,9 +18,13 @@ I am going to apologize in advance for the setup screen. These devices really we
 At the time of writing the following entities are supported and automatically discovered:
 
 Lights (on/off only, no dimming)
+
 Switches
+
 Covers (open/close only)
+
 Scripts
+
 Groups (on/off)
 
 ## Screenshots
