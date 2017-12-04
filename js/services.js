@@ -1,3 +1,7 @@
+/**
+ * Class that controls all of the xhr calls to HomeAssistant
+ * @author Jerrod Lankford
+ */
 var HAServices = (function() {
 	
 	// Private function for building the service post request
@@ -6,6 +10,11 @@ var HAServices = (function() {
 		this.password = localStorage.getItem('ha-pass');
 	}
 	
+	/**
+	 * Update the url and password and save them to local storage
+	 * @param url
+	 * @param password
+	 */
 	HAServices.prototype.updateCredentials = function(url, password){
 		if (url.endsWith("/")) {
 			url = url.slice(0,url.length-1);
@@ -17,6 +26,10 @@ var HAServices = (function() {
 		this.password = password;
 	};
 	
+	/**
+	 * Fetch saved credentials
+	 * @returns creds
+	 */
 	HAServices.prototype.getCredentials = function() {
 		return {
 			url: this.url,
@@ -24,6 +37,11 @@ var HAServices = (function() {
 		}
 	};
 	
+	/**
+	 * Get a list of entities from HomeAssistant
+	 * @param success callback function for success
+	 * @param error callback function for error
+	 */
 	HAServices.prototype.getEntities = function(success, error) {
 		$.ajax({
 			url: this.url + "/api/states",
@@ -49,6 +67,7 @@ var HAServices = (function() {
 		};
 	}
 	
+	// Service calls
 	
 	HAServices.prototype.switchOn = function(entity_id) {
 		$.ajax(this.buildPostRequest("switch/turn_on", entity_id));	

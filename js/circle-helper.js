@@ -39,6 +39,7 @@
                     if (page.id !== "pageMarqueeList" && page.id !== "pageTestVirtualList" && page.id !== "pageAnimation") {
                         len = list.length;
                         for (i = 0; i < len; i++) {
+                        	// TODO maybe break this up? This makes every list in the app a marquee snap list (which is fine for now)
                             listHelper[i] = tau.helper.SnapListMarqueeStyle.create(list[i],{
                 				marqueeDelay: 500});
                         

@@ -1,4 +1,9 @@
-var ViewCreator = (function() {
+/**
+ * Create an entity list given metadata about this list. See ViewMetadata for all of the entity specific metadata.
+ * The reason that we do it this way is because so far all of the entites behave the same exact way with slight differences.
+ * Icons, Services that they call on toggle, etc...
+ */
+var ViewManager = (function() {
 	
 	// Item template
 	var TEMPLATE = [
@@ -17,18 +22,26 @@ var ViewCreator = (function() {
 	 * Constructor
 	 * @param entity The json object with all of the entity information
 	 */
-	function ViewCreator(entities) {
+	function ViewManager(entities) {
 		this.entities = entities;
 		this.currentPage = "";
 	}
 	
-	ViewCreator.prototype.create = function(metadata) {
+	/**
+	 * Create an entity list and register the click handlers for each entity in the list
+	 * @param metadata View metadata
+	 */
+	ViewManager.prototype.create = function(metadata) {
 		createDom(this.entities, metadata);
 		registerEventHandlers(metadata.select, metadata.deselect);
 		this.currentPage = metadata.name;
 	};
 	
-	ViewCreator.prototype.update = function(entities) {
+	/**
+	 * Update the current page with new entities
+	 * @param entities All of the entities in HomeAssistant
+	 */
+	ViewManager.prototype.update = function(entities) {
 		this.entities = entities;
 		if (this.currentPage) {
 			this.create(ViewMetadata[this.currentPage]);
@@ -41,6 +54,7 @@ var ViewCreator = (function() {
 		}
 	}
 
+	// Helper method to create the list dom from the entities
 	function createDom(entities, metadata) {
 		var filterString = metadata.name + ".";
 		var filteredEntities = entities.filter(function(entity){
@@ -62,6 +76,7 @@ var ViewCreator = (function() {
 		$('#entity-list-title').html(metadata.title);
 	}
 	
+	// Helper to register click handlers for the list items
 	registerEventHandlers = function(select, deselect) {
 		$('.entity-list-item').click(function(e) {
 			var li = e.currentTarget;
@@ -92,5 +107,5 @@ var ViewCreator = (function() {
 		 				.replace(/%5/g, icon);
 	}
 	
-	return ViewCreator;
+	return ViewManager;
 })();
