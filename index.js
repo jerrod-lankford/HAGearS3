@@ -1,19 +1,53 @@
 // TODO Use some type of requireJs or custom stuff like settingsUI
 // require ViewNetadata from /js/view/ViewMetadata.js 
 $(function () {
-	var viewManager;
+	var viewManager,
+		selectorComponent;
+
+	// Set up the selector component initially and also before page show
+	selectorComponent = tau.widget.Selector(document.getElementById('main-nav'));
 	
-	function attachButtonListeners() {
-		
-		// Settings button listener
-		$('#setup-button').click(function(){
+	function mainPageNav(view) {
+		if (view === 'Settings') {
 			tau.changePage('setup');
 			var creds = HAServices.getCredentials();
 			var url = creds.url;
 			
 			$('#setup-url').val(url);
+		} else {
+			viewManager.create(ViewMetadata[view]);
+			tau.changePage('entities');
+		}
+	}
+	
+	function attachButtonListeners() {		
+		var main = document.getElementById('main');
+		var selector = document.getElementById('main-nav');		
+
+		document.getElementById('main').addEventListener("pagebeforeshow", function() {
+			selectorComponent = tau.widget.Selector(selector);
 		});
 		
+		document.getElementById('main').addEventListener("pagebeforehide", function() {
+			selectorComponent && selectorComponent.destroy();
+		});
+		
+		selector.addEventListener("click", function(e) {
+			var activeItem = e.currentTarget.querySelector('.ui-item-active');
+			var view = activeItem.dataset.title;
+			mainPageNav(view);
+		}, false);
+		
+		$('.ui-selector .ui-item').click(function(e){
+			var activeItem = e.currentTarget;
+			var view = activeItem.dataset.title;
+			mainPageNav(view);
+			
+			// Prevent the selectors main event listener from firing in the event of a direct item click
+			e.preventDefault();
+			event.stopPropagation();
+		});
+
 		// Settings save button listener
 		$('#setup-save-button').click(function() {
 			var url = $('#setup-url').val();
@@ -22,18 +56,6 @@ $(function () {
 			HAServices.updateCredentials(url, password);
 			history.back();
 			initialFetch();
-		});
-		
-		// All navigation links
-		$('#main-nav').on('click', '.nav-link', function(e) {
-			var a = e.currentTarget;
-			var view = a.dataset.id;
-			
-			if (viewManager && view) {
-				viewManager.create(ViewMetadata[view]);
-				tau.changePage('entities');
-			}
-			
 		});
 		
 		// refresh button on entities page

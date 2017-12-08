@@ -12,22 +12,27 @@
 </head>
 <body>
 	<!-- Main page -->
-	<div class="ui-page ui-page-active" id="main">
-		<header class="ui-header">
-			<h2 class="ui-title">Home</h2>
-		</header>
-		<div class="ui-content">
-			<ul id="main-nav" class="ui-listview">
-				<li><a class="nav-link" href="#" data-id="switch">Switches</a></li>
-				<li><a class="nav-link" href="#" data-id="light">Lights</a></li>
-				<li><a class="nav-link" href="#" data-id="script">Scripts</a></li>
-				<li><a class="nav-link" href="#" data-id="cover">Covers</a></li>
-				<li><a class="nav-link" href="#" data-id="group">Groups</a></li>
-			</ul>
+	<div class="ui-page ui-page-active" id="main" data-enable-page-scroll="false">
+		<div id="main-nav" class="ui-content ui-selector">
+			<div class="ui-item" data-title="Lights">
+				<div class="mdi mdi-lightbulb mdi-36px"></div>
+			</div>
+			<div class="ui-item" data-title="Switches">
+				<div class="mdi mdi-flash mdi-36px"></div>
+			</div>
+			<div class="ui-item" data-title="Scripts">
+				<div class="mdi mdi-file-document mdi-36px"></div>
+			</div>
+			<div class="ui-item" data-title="Covers">
+				<div class="mdi mdi-blinds mdi-36px"></div>
+			</div>
+			<div class="ui-item" data-title="Groups">
+				<div class="mdi mdi-account-multiple mdi-36px"></div>
+			</div>
+			<div class="ui-item" data-title="Settings">
+				<div class="mdi mdi-settings mdi-36px"></div>
+			</div>
 		</div>
-		<footer class="ui-footer ui-bottom-button">
-			<button id="setup-button" class="ui-btn"><div class="mdi mdi-settings mdi-48px"></div></button>
-		</footer>
 		<div id="main-spinner" class="ui-processing ui-processing-full-size hidden"></div>
 	</div>
 	<!-- Entities page -->

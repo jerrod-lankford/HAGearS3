@@ -34,7 +34,7 @@ var ViewManager = (function() {
 	ViewManager.prototype.create = function(metadata) {
 		createDom(this.entities, metadata);
 		registerEventHandlers(metadata.select, metadata.deselect);
-		this.currentPage = metadata.name;
+		this.currentPage = metadata.title;
 	};
 	
 	/**

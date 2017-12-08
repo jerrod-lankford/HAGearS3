@@ -25,7 +25,6 @@
         snapList = [],
         i,
         len;
-
     if (tau.support.shape.circle) {
         document.addEventListener("pagebeforeshow", function(e) {
             page = e.target;

@@ -1,5 +1,5 @@
 var ViewMetadata = {
-	'switch': {
+	'Switches': {
 		name: 'switch',
 		title: 'Switches',
 		selectedState: 'on',
@@ -7,7 +7,7 @@ var ViewMetadata = {
 		deselect: HAServices.switchOff,
 		defaultIcon: 'mdi-flash'
 	},
-	'light': {
+	'Lights': {
 		name: 'light',
 		title: 'Lights',
 		selectedState: 'on',
@@ -15,7 +15,7 @@ var ViewMetadata = {
 		deselect: HAServices.lightOff,
 		defaultIcon: 'mdi-lightbulb'
 	},
-	'script': {
+	'Scripts': {
 		name: 'script',
 		title: 'Scripts',
 		selectedState: 'on',
@@ -23,7 +23,7 @@ var ViewMetadata = {
 		deselect: HAServices.scriptOff,
 		defaultIcon: 'mdi-file-document'
 	},
-	'cover': {
+	'Covers': {
 		name: 'cover',
 		title: 'Covers',
 		selectedState: 'closed',
@@ -31,7 +31,7 @@ var ViewMetadata = {
 		deselect: HAServices.coverOpen,
 		defaultIcon: 'mdi-blinds'
 	},
-	'group': {
+	'Groups': {
 		name: 'group',
 		title: 'Groups',
 		selectedState: 'on',

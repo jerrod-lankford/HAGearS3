@@ -40,10 +40,9 @@ body {
     width: 70px;
     padding-top: 11px;
     border-radius: 50%;
-    background: #8c8f93;
 }
 
-.ui-listview .li-has-toggle .icon-container > div {
+.icon-container > div {
 	margin-left: auto;
 	margin-right: auto;
 	width:48px;
@@ -61,25 +60,56 @@ body {
 	text-align: left;
 }
 
+.icon-container,
+div.ui-selector .ui-layer .ui-item {
+	color: white;
+	background-color: #8c8f93;
+}
+
+/* Overrides for selector. For some reason in my app the height/width defaults to 4.25rem*/
+div.ui-selector .ui-layer div.ui-item {
+	height: 3.5rem;
+	width: 3.5rem;
+	padding-top:10px;
+}
+
+div.ui-selector-indicator {
+	font-size: 40px !important;
+}
+
+div.ui-selector div.ui-item .mdi {
+	height: 36px;
+	width: 36px;
+	margin-left:auto;
+	margin-right:auto;
+}
 .ui-listview li div.ui-snap-listview-selected .ui-marquee {
 	-webkit-transition: all ease 1s;
 }
 
+.ui-selector .ui-item-active[data-title="Lights"],
 .ui-listview li.selected .light-icon-container {
-    background: rgb(253, 216, 53);
+    background-color: rgb(253, 216, 53) !important;
 }
 
+.ui-selector .ui-item-active[data-title="Switches"],
 .ui-listview li.selected .switch-icon-container {
-	background: #00cc44;
+	background-color: #00cc44 !important;
 }
 
+.ui-selector .ui-item-active[data-title="Scripts"],
 .ui-listview li.selected .script-icon-container {
-	background: #0090ff;
+	background-color: #1ee8ff !important;
 }
 
-.ui-listview li.selected .cover-icon-container,
+.ui-selector .ui-item-active[data-title="Covers"],
+.ui-listview li.selected .cover-icon-container {
+	background-color: #ed3838 !important;
+}
+
+.ui-selector .ui-item-active[data-title="Groups"],
 .ui-listview li.selected .group-icon-container {
-	background: #ed3838;
+	background-color: #0c0cce !important;
 }
 
 #setup header {
