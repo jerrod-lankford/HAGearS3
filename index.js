@@ -11,7 +11,6 @@ $(function () {
 	var runBefore = localStorage.getItem('ha-run-before');
 	if (runBefore) {
 		// Fetch initial data
-		debugger;
 		$('#spinner').removeClass('hidden');
 		dataManager.load(function(){
 			hideSpinner();
