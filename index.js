@@ -11,7 +11,7 @@ $(function () {
 	var runBefore = localStorage.getItem('ha-run-before');
 	if (runBefore) {
 		// Fetch initial data
-		$('#spinner').removeClass('hidden');
+		$('#main-spinner').removeClass('hidden');
 		dataManager.load(function(){
 			hideSpinner();
 			entitiesPage.update();
@@ -36,6 +36,6 @@ $(function () {
     });
 	
 	function hideSpinner() {
-		$('#spinner').addClass('hidden');
+		$('#main-spinner').addClass('hidden');
 	}
 });
