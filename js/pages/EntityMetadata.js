@@ -1,4 +1,4 @@
-var ViewMetadata = {
+var EntityMetadata = {
 	'Switches': {
 		name: 'switch',
 		title: 'Switches',

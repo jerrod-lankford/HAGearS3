@@ -36,7 +36,7 @@
 		<div id="main-spinner" class="ui-processing ui-processing-full-size hidden"></div>
 	</div>
 	<!-- Entities page -->
-	<div class="ui-page" id="entities">
+	<div id="entities" class="ui-page">
 		<header class="ui-header">
 			<h2 id="entity-list-title" class="ui-title">Switches</h2>
 		</header>
@@ -50,7 +50,7 @@
 		</footer>
 		<div id="entity-spinner" class="ui-processing ui-processing-full-size hidden"></div>
 	</div>
-	<div class="ui-page" id="setup">
+	<div id="setup" class="ui-page">
 		<header class="ui-header">
 			<h2 class="ui-title">Setup</h2>
 		</header>
@@ -72,13 +72,17 @@
 			<a id="error-popup-cancel" href="#" class="ui-btn" data-rel="back">OK</a>
 		</div>
 	</div>
+	<!-- Helpers -->
 	<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
 	<script type="text/javascript" src="js/circle-helper.js"></script>
     <!-- Libraries -->
-	<script type="text/javascript" src="js/services.js"></script>
-	<!-- Views -->
-	<script type="text/javascript" src="js/views/ViewMetadata.js"></script>
-	<script type="text/javascript" src="js/views/ViewManager.js"></script>
+	<script type="text/javascript" src="js/Services.js"></script>
+	<script type="text/javascript" src="js/DataManager.js"></script>
+	<!-- Pages -->
+	<script type="text/javascript" src="js/pages/EntityMetadata.js"></script>
+	<script type="text/javascript" src="js/pages/EntitiesPage.js"></script>
+	<script type="text/javascript" src="js/pages/MainPage.js"></script>
+	<script type="text/javascript" src="js/pages/SettingsPage.js"></script>
 	<!-- App -->
 	<script src="index.js"></script>
 	<script src="lowBatteryCheck.js"></script>

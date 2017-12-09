@@ -3,7 +3,7 @@
  * The reason that we do it this way is because so far all of the entites behave the same exact way with slight differences.
  * Icons, Services that they call on toggle, etc...
  */
-var ViewManager = (function() {
+var EntitiesPage = (function() {
 	
 	// Item template
 	var TEMPLATE = [
@@ -22,17 +22,26 @@ var ViewManager = (function() {
 	 * Constructor
 	 * @param entity The json object with all of the entity information
 	 */
-	function ViewManager(entities) {
-		this.entities = entities;
-		this.currentPage = "";
+	function EntitiesPage(dataManager) {
+		this.currentPage = null;
+		this.dataManager = dataManager;
+		
+		// Attach refresh click handler
+		$('#refresh-button').click(refresh.bind(this));
+		
+		// Blank out the current page on hide
+		document.getElementById('entities').addEventListener("pagebeforehide", function() {
+			this.currentPage = null;
+		}.bind(this));
+		
 	}
 	
 	/**
 	 * Create an entity list and register the click handlers for each entity in the list
 	 * @param metadata View metadata
 	 */
-	ViewManager.prototype.create = function(metadata) {
-		createDom(this.entities, metadata);
+	EntitiesPage.prototype.create = function(metadata) {
+		createDom(this.dataManager.getEntities(), metadata);
 		registerEventHandlers(metadata.select, metadata.deselect);
 		this.currentPage = metadata.title;
 	};
@@ -41,10 +50,9 @@ var ViewManager = (function() {
 	 * Update the current page with new entities
 	 * @param entities All of the entities in HomeAssistant
 	 */
-	ViewManager.prototype.update = function(entities) {
-		this.entities = entities;
+	EntitiesPage.prototype.update = function() {
 		if (this.currentPage) {
-			this.create(ViewMetadata[this.currentPage]);
+			this.create(EntityMetadata[this.currentPage]);
 			
 			// This is necessary since we blow the dom away. It makes the snaplist work again
 			// The snaplist meaning, it selects an item as you scroll. Also handles marquee scrolling
@@ -106,6 +114,19 @@ var ViewManager = (function() {
 		 				.replace(/%4/g, metadata.name)
 		 				.replace(/%5/g, icon);
 	}
+	 
+	function refresh() {
+		// Show spinner
+		$('#entity-spinner').removeClass('hidden');
+		this.dataManager.load(function(data){
+			// Hide spinner
+			$('#entity-spinner').addClass('hidden');
+			this.update(data);
+		}.bind(this), function(){
+			// Hide spinner on error
+			$('#entity-spinner').addClass('hidden');
+		});
+	}
 	
-	return ViewManager;
+	return EntitiesPage;
 })();
