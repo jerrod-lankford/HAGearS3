@@ -11,4 +11,5 @@
     <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
     <tizen:profile name="wearable"/>
     <tizen:setting hwkey-event="enable"/>
+    <access origin="*" subdomains="true"/>
 </widget>

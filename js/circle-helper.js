@@ -22,7 +22,6 @@
         elScroller,
         list,
         listHelper = [],
-        snapList = [],
         i,
         len;
     if (tau.support.shape.circle) {
@@ -42,12 +41,6 @@
                             listHelper[i] = tau.helper.SnapListMarqueeStyle.create(list[i],{
                 				marqueeDelay: 500});
                         
-                        }
-                        len = listHelper.length;
-                        if (len) {
-                            for (i = 0; i < len; i++) {
-                                snapList[i] = listHelper[i].getSnapList();
-                            }
                         }
                     }
                 }
