@@ -1,5 +1,5 @@
 # HAGearS3
-Home Assistant user interface for the Samsung Gear S3/S2 (tizen os)
+The Unofficial Home Assistant user interface for the Samsung Gear S3/S2 (tizen os)
 
 ## Instructions
 On the first run you need to add your server url and password in the settings page. After the welcome popup comes up click ok and scroll down to settings
