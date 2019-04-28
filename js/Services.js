@@ -15,17 +15,18 @@ var HAServices = (function() {
 	 * @param url
 	 * @param password
 	 */
-	HAServices.prototype.updateCredentials = function(url, token){
-		token = this.getTokenFromCl1p(token);
-		
-		if (url.endsWith("/")) {
-			url = url.slice(0,url.length-1);
-		}
-		localStorage.setItem('ha-url', url);
-		localStorage.setItem('ha-token', token);
-		
-		this.url = url;
-		this.token = token;
+	HAServices.prototype.updateCredentials = function(url, token, callback){
+		this.setTokenFromCl1p(token, function(token) {
+			this.token = token;
+			if (url.endsWith("/")) {
+				url = url.slice(0,url.length-1);
+			}
+			localStorage.setItem('ha-url', url);
+			localStorage.setItem('ha-token', token);
+			
+			this.url = url;
+			callback();
+		}.bind(this));
 	};
 	
 	/**
@@ -33,15 +34,19 @@ var HAServices = (function() {
 	 * @param url
 	 * @param password
 	 */
-	HAServices.prototype.getTokenFromCl1p = function(clipPath){
-		alert(clipPath);
-		
+	HAServices.prototype.setTokenFromCl1p = function(clipPath, callback){
 		$.ajax({
 			url: "https://cl1p.net/" + clipPath,
 			success:function(data) {
-				alert(data);
-				alert($(data).find("textarea").text());
-			},
+				token = $(data).find("textarea").text();
+				if (token.length > 100) {
+					callback(token);
+				} else {
+					// Show error popup
+					$('#error-popup-contents').text("No valid token\n found for\n" + clipPath);
+					tau.changePage('error-popup');	
+				}
+			}.bind(this),
 			error: function(xhr, status, message) {	
 				// TODO more status to message conversions?
 				if (!message) {
@@ -55,7 +60,7 @@ var HAServices = (function() {
 				// Show error popup
 				$('#error-popup-contents').text("An error has occured.\n" + "Status code: " + xhr.status + "\n" + "Messsage: " + message);
 				tau.changePage('error-popup');
-			} 
+			}.bind(this) 
 		});
 	};
 	
