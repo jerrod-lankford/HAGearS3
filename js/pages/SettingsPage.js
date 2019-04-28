@@ -5,10 +5,10 @@ var SettingsPage = (function() {
 	}
 	function setupSave() {
 		var url = $('#setup-url').val();
-		var password = $('#setup-password').val();
+		var token = $('#setup-token').val();
 		
 		// TODO Should creds be managed though the data manager?
-		HAServices.updateCredentials(url, password);
+		HAServices.updateCredentials(url, token);
 		history.back();
 		
 		$('#main-spinner').removeClass('hidden');

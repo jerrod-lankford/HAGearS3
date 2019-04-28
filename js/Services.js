@@ -7,7 +7,7 @@ var HAServices = (function() {
 	// Private function for building the service post request
 	function HAServices() {
 	    this.url = localStorage.getItem('ha-url');
-		this.password = localStorage.getItem('ha-pass');
+		this.token = localStorage.getItem('ha-token');
 	}
 	
 	/**
@@ -15,15 +15,15 @@ var HAServices = (function() {
 	 * @param url
 	 * @param password
 	 */
-	HAServices.prototype.updateCredentials = function(url, password){
+	HAServices.prototype.updateCredentials = function(url, token){
 		if (url.endsWith("/")) {
 			url = url.slice(0,url.length-1);
 		}
 		localStorage.setItem('ha-url', url);
-		localStorage.setItem('ha-pass', password);
+		localStorage.setItem('ha-token', token);
 		
 		this.url = url;
-		this.password = password;
+		this.token = token;
 	};
 	
 	/**
@@ -33,7 +33,7 @@ var HAServices = (function() {
 	HAServices.prototype.getCredentials = function() {
 		return {
 			url: this.url,
-			password: this.password
+			token: this.token
 		}
 	};
 	
@@ -46,7 +46,7 @@ var HAServices = (function() {
 		$.ajax({
 			url: this.url + "/api/states",
 			headers: {
-				'x-ha-access': this.password
+				'Authorization': 'Bearer ' + this.token
 			},
 			success: success,
 			error: error
@@ -62,7 +62,7 @@ var HAServices = (function() {
 			data: JSON.stringify({"entity_id": entity_id}),
 			headers: {
 				'Content-Type': 'application/json',
-				'x-ha-access': this.password
+				'Authorization': 'Bearer ' + this.token
 			}
 		};
 	}
