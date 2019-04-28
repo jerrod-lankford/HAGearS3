@@ -16,6 +16,8 @@ var HAServices = (function() {
 	 * @param password
 	 */
 	HAServices.prototype.updateCredentials = function(url, token){
+		token = this.getTokenFromCl1p(token);
+		
 		if (url.endsWith("/")) {
 			url = url.slice(0,url.length-1);
 		}
@@ -24,6 +26,37 @@ var HAServices = (function() {
 		
 		this.url = url;
 		this.token = token;
+	};
+	
+	/**
+	 * Update the url and password and save them to local storage
+	 * @param url
+	 * @param password
+	 */
+	HAServices.prototype.getTokenFromCl1p = function(clipPath){
+		alert(clipPath);
+		
+		$.ajax({
+			url: "https://cl1p.net/" + clipPath,
+			success:function(data) {
+				alert(data);
+				alert($(data).find("textarea").text());
+			},
+			error: function(xhr, status, message) {	
+				// TODO more status to message conversions?
+				if (!message) {
+					if (xhr.status === 0) {
+						message = "Check network connection or home assistant url in setup";
+					} else {
+						message = "An unknown error has occured.";
+					}
+				}
+				
+				// Show error popup
+				$('#error-popup-contents').text("An error has occured.\n" + "Status code: " + xhr.status + "\n" + "Messsage: " + message);
+				tau.changePage('error-popup');
+			} 
+		});
 	};
 	
 	/**
