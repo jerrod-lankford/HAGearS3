@@ -25,9 +25,9 @@ Using a web browser navigate to this page and follow the below instructions
 
 6. Go back to the hassgalaxy site and paste this token into the token field.
 
-7.  Hit submit. It should go back to the main page and you should briefly see a loading spinner. Then your list of entities should work.
-   a. If you elected not to type in your url then it will go to the setup page instead of the entity list.
-   b. You need to enter your url manually. To actually type in this box you need to long hold each button and swipe to the correct character. Alternatively you can disable auto complete on the S3 by going to 
+7.  Hit submit. It should go back to the main page and you should briefly see a loading spinner. Then your list of entities should work. If you elected not to type in your url then proceed to step 8. Otherwise you are finished.
+
+8. It will go to the setup page instead of the entity list. You need to enter your url manually. To actually type in this box you need to long hold each button and swipe to the correct character. Alternatively you can disable auto complete on the S3 by going to 
    ```Settings > General Management > Input > Keyboard Settings > SmartTyping > Predictive Text | OFF```
 
 At the time of writing the following entities are supported and automatically discovered:
