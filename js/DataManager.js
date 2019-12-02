@@ -30,7 +30,7 @@ var DataManager = (function(){
 			// TODO more status to message conversions?
 			if (!message) {
 				if (xhr.status === 0) {
-					message = "Check network connection or home assistant url in setup";
+					message = "Check network connection or home assistant url in settings";
 				} else {
 					message = "An unknown error has occured.";
 				}

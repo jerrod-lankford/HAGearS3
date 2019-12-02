@@ -81,13 +81,13 @@ $(function () {
 				  dataManager.load(hideSpinner, hideSpinner);
 			  } else {
 				  // TODO Helper method or something...
-				  tau.changePage('setup');
+				  tau.changePage('settings');
 				  var creds = HAServices.getCredentials();
 				  var url = creds.url;
 				  var token = creds.token;
 					
-				  $('#setup-url').val(url);
-				  $('#setup-token').val(token);
+				  $('#settings-url').val(url);
+				  $('#settings-token').val(token);
 			  }
 		  }
 		};

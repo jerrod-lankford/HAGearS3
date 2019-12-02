@@ -3,9 +3,9 @@ var SettingsPage = (function() {
 	function hideSpinner() {
 		$('#main-spinner').addClass('hidden');
 	}
-	function setupSave() {
-		var url = $('#setup-url').val();
-		var token = $('#setup-token').val();
+	function settingsSave() {
+		var url = $('#settings-url').val();
+		var token = $('#settings-token').val();
 		
 		HAServices.updateCredentials(url, token);
 		history.back();
@@ -17,7 +17,7 @@ var SettingsPage = (function() {
 	function SettingsPage(dataManager) {
 		this.dataManager = dataManager;
 		// Settings save button listener
-		$('#setup-save-button').click(setupSave.bind(this));
+		$('#settings-save-button').click(settingsSave.bind(this));
 	}
 	
 	return SettingsPage;

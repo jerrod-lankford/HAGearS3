@@ -15,13 +15,13 @@ var MainPage = (function(){
 		var view = activeItem.dataset.title;
 		// Settings page has special handling, all other entities go through the EntitiesPage
 		if (view === 'Settings') {
-			tau.changePage('setup');
+			tau.changePage('settings');
 			var creds = HAServices.getCredentials();
 			var url = creds.url;
 			var token = creds.token;
 			
-			$('#setup-url').val(url);
-			$('#setup-token').val(token);
+			$('#settings-url').val(url);
+			$('#settings-token').val(token);
 		} else {
 			this.entitiesPage.create(EntityMetadata[view]);
 			tau.changePage('entities');

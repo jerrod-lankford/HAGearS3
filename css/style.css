@@ -112,20 +112,20 @@ div.ui-selector div.ui-item .mdi {
 	background-color: #0c0cce !important;
 }
 
-#setup header {
+#settings header {
 	margin-top: -20px;
 }
 
-.setup-form  {
+.settings-form  {
 	padding-left: 20px;
 	padding-right: 20px
 }
 
-.setup-form input {
+.settings-form input {
 	width: 100%;
 }
 
-.setup-form button {
+.settings-form button {
 	margin-top: 20px;
 }
 
