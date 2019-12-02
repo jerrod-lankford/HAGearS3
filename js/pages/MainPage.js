@@ -18,8 +18,10 @@ var MainPage = (function(){
 			tau.changePage('setup');
 			var creds = HAServices.getCredentials();
 			var url = creds.url;
+			var token = creds.token;
 			
 			$('#setup-url').val(url);
+			$('#setup-token').val(token);
 		} else {
 			this.entitiesPage.create(EntityMetadata[view]);
 			tau.changePage('entities');
