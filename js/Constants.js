@@ -1,7 +1,7 @@
 var Constants = (function() {
-	// TODO Switch to hassgalaxy.app when ready
 	return {
-		HASS_GALAXY_URL: 'https://hassgalaxy.herokuapp.com',
-	    HASS_GALAXY_WS: 'ws://hassgalaxy.herokuapp.com'
+		HASS_GALAXY_URL: 'https://hassgalaxy.app',
+	    HASS_GALAXY_WS: 'ws://hassgalaxy.herokuapp.com', // we can't use the real domain for ws because of the 302
+	    SOCKET_TIMEOUT: 60000 // 60 seconds
 	};
 })();

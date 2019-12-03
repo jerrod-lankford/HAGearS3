@@ -21,6 +21,7 @@ var HAServices = (function() {
 		}
 		localStorage.setItem('ha-url', url);
 		localStorage.setItem('ha-token', token);
+		localStorage.setItem('ha-has-credentials', true);
 
 		this.url = url;
 		this.token = token;
