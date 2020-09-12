@@ -112,6 +112,11 @@ div.ui-selector div.ui-item .mdi {
 	background-color: #0c0cce !important;
 }
 
+.ui-selector .ui-item-active[data-title="Locks"],
+.ui-listview li.selected .lock-icon-container {
+	background-color: #40a8ad !important;
+}
+
 #settings header {
 	margin-top: -20px;
 }

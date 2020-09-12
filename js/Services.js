@@ -110,6 +110,14 @@ var HAServices = (function() {
 		$.ajax(this.buildPostRequest("homeassistant/turn_off", entity_id));	
 	};
 	
+	HAServices.prototype.lockLock = function(entity_id) {
+		$.ajax(this.buildPostRequest("lock/lock", entity_id));	
+	};
+	
+	HAServices.prototype.lockUnlock = function(entity_id) {
+		$.ajax(this.buildPostRequest("lock/unlock", entity_id));	
+	};
+	
 	return new HAServices();
 	
 })();

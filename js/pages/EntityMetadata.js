@@ -39,4 +39,12 @@ var EntityMetadata = {
 		deselect: HAServices.groupOff,
 		defaultIcon: 'mdi-account-multiple'
 	}
+	,'Locks': {
+		name: 'lock',
+		title: 'Locks',
+		selectedState: 'locked',
+		select: HAServices.lockLock,
+		deselect: HAServices.lockUnlock,
+		defaultIcon: 'mdi-lock'
+	}
 };
