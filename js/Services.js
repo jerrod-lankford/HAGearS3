@@ -110,6 +110,10 @@ var HAServices = (function() {
 		$.ajax(this.buildPostRequest("homeassistant/turn_off", entity_id));	
 	};
 	
+	HAServices.prototype.sceneOn = function(entity_id) {
+		$.ajax(this.buildPostRequest("scene/turn_on", entity_id));
+	};
+
 	return new HAServices();
 	
 })();

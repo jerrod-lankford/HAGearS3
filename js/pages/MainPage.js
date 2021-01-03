@@ -22,7 +22,7 @@ var MainPage = (function(){
 			$('#settings-url').val(url);
 			$('#settings-token').val(token);
 		} else {
-			this.entitiesPage.create(EntityMetadata[view]);
+			this.entitiesPage.create(view);
 			tau.changePage('entities');
 		}
 	}

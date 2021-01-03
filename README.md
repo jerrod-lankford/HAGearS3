@@ -38,6 +38,7 @@ Switches
 Covers (open/close only)
 Scripts
 Groups (on/off)
+Scenes
 ```
 
 ## Screenshots
