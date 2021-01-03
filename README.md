@@ -41,9 +41,14 @@ Groups (on/off)
 Scenes
 ```
 
+## Widget
+
+This application includes a shortcut widget that takes you directly to the entities you wish to access. For the widget to work properly, the application
+must have been started once before. Otherwise it might keep requesting the credentials input.
+
 ## Screenshots
 ![Screenshot](screenshots/home.png?raw=true)
 ![Screenshot](screenshots/lights.png?raw=true)
-
 ![Screenshot](screenshots/switches.png?raw=true)
 ![Screenshot](screenshots/covers.png?raw=true)
+![Screenshot](widget/HomeAssistantWidget/images/screenshot.png?raw=true)
