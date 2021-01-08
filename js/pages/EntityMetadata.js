@@ -6,7 +6,10 @@ var EntityMetadata = {
 		deselectedState: 'off',
 		select: HAServices.switchOn,
 		deselect: HAServices.switchOff,
-		defaultIcon: 'mdi-flash'
+		defaultIcon: 'mdi-flash',
+		supports: [
+			"on-off"
+		]
 	},
 	'Lights': {
 		name: 'light',
@@ -15,7 +18,13 @@ var EntityMetadata = {
 		deselectedState: 'off',
 		select: HAServices.lightOn,
 		deselect: HAServices.lightOff,
-		defaultIcon: 'mdi-lightbulb'
+		defaultIcon: 'mdi-lightbulb',
+		supports: [
+			"on-off",
+			"brightness",
+			"colour",
+			"effects"
+		]
 	},
 	'Scripts': {
 		name: 'script',
@@ -24,7 +33,10 @@ var EntityMetadata = {
 		deselectedState: 'off',
 		select: HAServices.scriptOn,
 		deselect: HAServices.scriptOff,
-		defaultIcon: 'mdi-file-document'
+		defaultIcon: 'mdi-file-document',
+		supports: [
+			"on-off"
+		]
 	},
 	'Covers': {
 		name: 'cover',
@@ -33,7 +45,10 @@ var EntityMetadata = {
 		deselectedState: 'opened',
 		select: HAServices.coverClose,
 		deselect: HAServices.coverOpen,
-		defaultIcon: 'mdi-blinds'
+		defaultIcon: 'mdi-blinds',
+		supports: [
+			"on-off"
+		]
 	},
 	'Groups': {
 		name: 'group',
@@ -42,7 +57,10 @@ var EntityMetadata = {
 		deselectedState: 'off',
 		select: HAServices.groupOn,
 		deselect: HAServices.groupOff,
-		defaultIcon: 'mdi-account-multiple'
+		defaultIcon: 'mdi-account-multiple',
+		supports: [
+			"on-off"
+		]
 	},
 	'Scenes': {
 		name: 'scene',
@@ -50,8 +68,12 @@ var EntityMetadata = {
 		// We do not want the scene to appear selected
 		// since they are always on
 		selectedState: '',
+		deselectedState: '',
 		select: HAServices.sceneOn,
 		deselect: HAServices.sceneOn,
-		defaultIcon: 'mdi-palette'
+		defaultIcon: 'mdi-palette',
+		supports: [
+			"on-off"
+		]
 	}
 };

@@ -22,17 +22,19 @@ var EntitiesPage = (function() {
 	 * Constructor
 	 * @param entity The json object with all of the entity information
 	 */
-	function EntitiesPage(dataManager) {
+	function EntitiesPage(dataManager, entityPage) {
 		this.currentPage = null;
 		this.dataManager = dataManager;
+		this.EntityPage = entityPage;
 
 		// Attach refresh click handler
 		$('#refresh-button').click(refresh.bind(this));
 
-		// Blank out the current page on hide
-		document.getElementById('entities').addEventListener("pagebeforehide", function() {
-			this.currentPage = null;
-		}.bind(this));
+		// Do not blank out the current page to allow returning from an entity page
+		// // Blank out the current page on hide
+		// document.getElementById('entities').addEventListener("pagebeforehide", function() {
+		// 	this.currentPage = null;
+		// }.bind(this));
 
 	}
 
@@ -43,7 +45,7 @@ var EntitiesPage = (function() {
 	EntitiesPage.prototype.create = function(view) {
 		var entities = this.dataManager.getEntities()
 		createDom(entities, view);
-		registerEventHandlers(view, entities);
+		registerEventHandlers(this.EntityPage, view, entities);
 		this.currentPage = view;
 	};
 
@@ -87,7 +89,7 @@ var EntitiesPage = (function() {
 	}
 
 	// Helper to register click handlers for the list items
-	registerEventHandlers = function(view, entities) {
+	registerEventHandlers = function(entitiesPage, view, entities) {
 		$('.entity-list-item-icon').click(function(e) {
 			var li = e.currentTarget;
 			var entity_id = li.dataset.entityId;
@@ -116,6 +118,19 @@ var EntitiesPage = (function() {
 					li.classList.add("selected");
 				}
 			}
+		});
+		$('.entity-list-item').click(function(e) {
+			var li = e.currentTarget;
+			var entity_id = li.dataset.entityId;
+			var entity = entities.filter(function(entity){
+				if (entity.entity_id === entity_id) {
+					return true;
+				}
+			})[0];
+			var metadata = EntityMetadata[view];
+
+			entitiesPage.createEntityPage(EntityMetadata[metadata.title], entity);
+			tau.changePage('entity');
 		});
 	}
 
