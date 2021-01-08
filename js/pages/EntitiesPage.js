@@ -40,11 +40,11 @@ var EntitiesPage = (function() {
 	 * Create an entity list and register the click handlers for each entity in the list
 	 * @param currentPage the title of the current page being displayed
 	 */
-	EntitiesPage.prototype.create = function(currentPage) {
-		var metadata = EntityMetadata[currentPage];
-		createDom(this.dataManager.getEntities(), metadata);
-		registerEventHandlers(metadata.select, metadata.deselect, currentPage);
-		this.currentPage = metadata.title;
+	EntitiesPage.prototype.create = function(view) {
+		var entities = this.dataManager.getEntities()
+		createDom(entities, view);
+		registerEventHandlers(view, entities);
+		this.currentPage = view;
 	};
 
 	/**
@@ -64,8 +64,8 @@ var EntitiesPage = (function() {
 	}
 
 	// Helper method to create the list dom from the entities
-	function createDom(entities, metadata) {
-		var filterString = metadata.name + ".";
+	function createDom(entities, view) {
+		var filterString = EntityMetadata[view].name + ".";
 
 		var filteredEntities = entities.filter(function(entity){
 			if (entity.entity_id.startsWith(filterString)) {
@@ -79,30 +79,40 @@ var EntitiesPage = (function() {
 
 		var domString = "";
 		for (var i=0;i<filteredEntities.length;i++) {
-			domString = domString + createListItem(filteredEntities[i], metadata);
+			domString = domString + createListItem(filteredEntities[i], view);
 		}
 
 		$('#entity-list').html(domString);
-		$('#entity-list-title').html(metadata.title);
+		$('#entity-list-title').html(view);
 	}
 
 	// Helper to register click handlers for the list items
-	registerEventHandlers = function(select, deselect, currentPage) {
+	registerEventHandlers = function(view, entities) {
 		$('.entity-list-item-icon').click(function(e) {
 			var li = e.currentTarget;
 			var entity_id = li.dataset.entityId;
+			var entity = entities.filter(function(entity){
+				if (entity.entity_id === entity_id) {
+					return true;
+				}
+			})[0];
+
+			var metadata = EntityMetadata[view];
+
 			// We have to flip the value since the input has changed when we get the event
 			var selected = li.classList.contains("selected");
 			if (selected) {
 				// TODO FIX makes assumptions that deselect is a function that needs to be invoked in the context of the services class
-				deselect.call(HAServices, entity_id);
-				if (currentPage != "Scenes") {
+				metadata.deselect.call(HAServices, entity_id);
+				if (metadata.title != "Scenes") {
+					entity.state = metadata.deselectedState
 					li.classList.remove("selected");
 				}
 			} else {
 				// TODO FIX makes assumptions that deselect is a function that needs to be invoked in the context of the services class
-				select.call(HAServices, entity_id);
-				if (currentPage != "Scenes") {
+				metadata.select.call(HAServices, entity_id);
+				if (metadata.title != "Scenes") {
+					entity.state = metadata.selectedState
 					li.classList.add("selected");
 				}
 			}
@@ -110,9 +120,10 @@ var EntitiesPage = (function() {
 	}
 
 	// Create a dom string representing an entity in the list
-	 function createListItem (entity, metadata) {
-		 var selected = entity.state === metadata.selectedState ? "selected" : "";
-		 var icon = (entity.attributes.icon && entity.attributes.icon.replace(":", "-")) ||
+	function createListItem (entity, view) {
+		var metadata = EntityMetadata[view];
+		var selected = entity.state === metadata.selectedState ? "selected" : "";
+		var icon = (entity.attributes.icon && entity.attributes.icon.replace(":", "-")) ||
 		 	metadata.defaultIcon;
 		return TEMPLATE.replace(/%1/g, entity.entity_id)
 						.replace(/%2/g, entity.attributes.friendly_name)

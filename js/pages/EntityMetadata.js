@@ -3,6 +3,7 @@ var EntityMetadata = {
 		name: 'switch',
 		title: 'Switches',
 		selectedState: 'on',
+		deselectedState: 'off',
 		select: HAServices.switchOn,
 		deselect: HAServices.switchOff,
 		defaultIcon: 'mdi-flash'
@@ -11,6 +12,7 @@ var EntityMetadata = {
 		name: 'light',
 		title: 'Lights',
 		selectedState: 'on',
+		deselectedState: 'off',
 		select: HAServices.lightOn,
 		deselect: HAServices.lightOff,
 		defaultIcon: 'mdi-lightbulb'
@@ -19,6 +21,7 @@ var EntityMetadata = {
 		name: 'script',
 		title: 'Scripts',
 		selectedState: 'on',
+		deselectedState: 'off',
 		select: HAServices.scriptOn,
 		deselect: HAServices.scriptOff,
 		defaultIcon: 'mdi-file-document'
@@ -27,6 +30,7 @@ var EntityMetadata = {
 		name: 'cover',
 		title: 'Covers',
 		selectedState: 'closed',
+		deselectedState: 'opened',
 		select: HAServices.coverClose,
 		deselect: HAServices.coverOpen,
 		defaultIcon: 'mdi-blinds'
@@ -35,6 +39,7 @@ var EntityMetadata = {
 		name: 'group',
 		title: 'Groups',
 		selectedState: 'on',
+		deselectedState: 'off',
 		select: HAServices.groupOn,
 		deselect: HAServices.groupOff,
 		defaultIcon: 'mdi-account-multiple'
