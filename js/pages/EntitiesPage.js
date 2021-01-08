@@ -7,12 +7,12 @@ var EntitiesPage = (function() {
 
 	// Item template
 	var TEMPLATE = [
-		'<li class="entity-list-item li-has-toggle %1" data-entity-id="%2">',
+		'<li class="li-has-toggle" >',
 			'<label>',
-		 			'<div class="name-container ui-marquee ui-marquee-gradient">',
-						"%3",
+					'<div class="entity-list-item name-container ui-marquee ui-marquee-gradient" data-entity-id="%1">',
+						"%2",
 					'</div>',
-				'<div class="icon-container %4-icon-container">',
+				'<div class="entity-list-item-icon icon-container %3 %4" data-entity-id="%1">',
 					'<div class="mdi mdi-48px %5"></div>',
 				'</div>',
 			'</label>',
@@ -88,7 +88,7 @@ var EntitiesPage = (function() {
 
 	// Helper to register click handlers for the list items
 	registerEventHandlers = function(select, deselect, currentPage) {
-		$('.entity-list-item').click(function(e) {
+		$('.entity-list-item-icon').click(function(e) {
 			var li = e.currentTarget;
 			var entity_id = li.dataset.entityId;
 			// We have to flip the value since the input has changed when we get the event
@@ -114,11 +114,11 @@ var EntitiesPage = (function() {
 		 var selected = entity.state === metadata.selectedState ? "selected" : "";
 		 var icon = (entity.attributes.icon && entity.attributes.icon.replace(":", "-")) ||
 		 	metadata.defaultIcon;
-		 return TEMPLATE.replace(/%1/g, selected)
-		 				.replace(/%2/g, entity.entity_id)
-		 				.replace(/%3/g, entity.attributes.friendly_name)
-		 				.replace(/%4/g, metadata.name)
-		 				.replace(/%5/g, icon);
+		return TEMPLATE.replace(/%1/g, entity.entity_id)
+						.replace(/%2/g, entity.attributes.friendly_name)
+						.replace(/%3/g, metadata.name + '-icon-container')
+						.replace(/%4/g, selected)
+						.replace(/%5/g, icon);
 	}
 
 	function refresh() {
@@ -127,7 +127,7 @@ var EntitiesPage = (function() {
 		this.dataManager.load(function(data){
 			// Hide spinner
 			$('#entity-spinner').addClass('hidden');
-			this.update(data);
+			this.update();
 		}.bind(this), function(){
 			// Hide spinner on error
 			$('#entity-spinner').addClass('hidden');

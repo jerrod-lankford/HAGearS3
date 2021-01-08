@@ -88,27 +88,27 @@ div.ui-selector div.ui-item .mdi {
 }
 
 .ui-selector .ui-item-active[data-title="Lights"],
-.ui-listview li.selected .light-icon-container {
+.ui-listview li .selected.light-icon-container {
     background-color: #fdd835 !important;
 }
 
 .ui-selector .ui-item-active[data-title="Switches"],
-.ui-listview li.selected .switch-icon-container {
+.ui-listview li .selected.switch-icon-container {
 	background-color: #00cc44 !important;
 }
 
 .ui-selector .ui-item-active[data-title="Scripts"],
-.ui-listview li.selected .script-icon-container {
+.ui-listview li .selected.script-icon-container {
 	background-color: #1ee8ff !important;
 }
 
 .ui-selector .ui-item-active[data-title="Covers"],
-.ui-listview li.selected .cover-icon-container {
+.ui-listview li .selected.cover-icon-container {
 	background-color: #ed3838 !important;
 }
 
 .ui-selector .ui-item-active[data-title="Groups"],
-.ui-listview li.selected .group-icon-container {
+.ui-listview li .selected.group-icon-container {
 	background-color: #0c0cce !important;
 }
 
