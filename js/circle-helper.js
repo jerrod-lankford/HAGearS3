@@ -40,7 +40,7 @@
                         	// TODO maybe break this up? This makes every list in the app a marquee snap list (which is fine for now)
                             listHelper[i] = tau.helper.SnapListMarqueeStyle.create(list[i],{
                 				marqueeDelay: 500});
-                        
+
                         }
                     }
                 }

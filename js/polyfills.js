@@ -1,5 +1,5 @@
 (function(){
-	
+
 	// String.prototype.endsWith polyfill
 	if (!String.prototype.endsWith)
 	  String.prototype.endsWith = function(searchStr, Position) {
@@ -9,11 +9,11 @@
 			  Position = this.length;
 		  else
 			  Position |= 0; // round position
-		  
+
 		  return this.substr(Position - searchStr.length,
 	                     searchStr.length) === searchStr;
 	}
-	
+
 	// String.prototype.startsWith polyfill
 	if (!String.prototype.startsWith) {
 	    String.prototype.startsWith = function(searchString, position){

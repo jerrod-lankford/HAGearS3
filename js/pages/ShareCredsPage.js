@@ -3,7 +3,7 @@ var ShareCredsPage = (function() {
 		this.dataManager = dataManager;
 		$('#share-creds-ok').click(handleOk.bind(this));
 	}
-	
+
 	ShareCredsPage.prototype.show = function() {
 		tau.changePage('share-creds');
 		var id = generateId(6);
@@ -11,7 +11,7 @@ var ShareCredsPage = (function() {
 		$('#share-creds-contents').text('It appears you have not setup your credentials. Go to ' + url + ' to share your credentials.');
 		this.ws = startWebsocket(id, this.dataManager);
 	}
-	
+
 	function handleOk() {
 		console.log('ready state: ' + this.ws.readyState);
 		if (this.ws) {
@@ -19,7 +19,7 @@ var ShareCredsPage = (function() {
 		}
 		history.back();
 	}
-	
+
 	/**
 	 * Generate a random n length a-z0-9 string
 	 * @param length Length of the generated string
@@ -33,17 +33,17 @@ var ShareCredsPage = (function() {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Start websocket to listen for credentials from the server
 	 */
 	function startWebsocket(id, dataManager) {
 		var ws = new WebSocket(Constants.HASS_GALAXY_WS);
-		
+
 		ws.onerror = function(e, e1, e2) {
 			$('#share-creds-contents').text('Error connecting to web socket server. You will have to try again or manually enter credentials.');
 		};
-		
+
 		ws.onopen = function() {
 		    console.log('Connected');
 		    ws.send('id: ' + id);
@@ -65,29 +65,29 @@ var ShareCredsPage = (function() {
 				  $('#main-spinner').removeClass('hidden');
 				  dataManager.load(hideSpinner, hideSpinner);
 			  } else {
-				  // TODO helper method, or maybe a PageManager 
+				  // TODO helper method, or maybe a PageManager
 				  tau.changePage('settings');
 				  var creds = HAServices.getCredentials();
 				  var url = creds.url;
 				  var token = creds.token;
-					
+
 				  $('#settings-url').val(url);
 				  $('#settings-token').val(token);
 			  }
 		  }
 		};
-		
+
 		ws.onclose = function() {
 			console.log('websocket closed');
 		};
-		
+
 		return ws;
 
 	}
-	
+
 	function hideSpinner() {
 		$('#main-spinner').addClass('hidden');
 	}
-	
+
 	return ShareCredsPage;
 })();
