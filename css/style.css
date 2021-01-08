@@ -113,8 +113,12 @@ div.ui-selector div.ui-item .mdi {
 }
 
 .ui-selector .ui-item-active[data-title="Scenes"],
-.ui-listview li.selected .scene-icon-container {
+.ui-listview li .selected.scene-icon-container {
 	background-color: #cc0cbf !important;
+}
+
+.ui-selector .ui-item-active[data-title="Hidden"]{
+	background-color: #000000 !important;
 }
 
 #settings header {
@@ -138,3 +142,57 @@ div.ui-selector div.ui-item .mdi {
 	word-break: break-word;
 }
 
+
+ /* The switch - the box around the slider */
+.switch {
+	position: absolute;
+	right: 30px;
+	bottom: 28px;
+	display: inline-block;
+	width: 68px;
+	height: 38px;
+}
+
+/* The slider */
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 30px;
+	width: 30px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.switch-checked .slider {
+	background-color: #2196F3;
+}
+
+.switch-checked .slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+	border-radius: 38px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}

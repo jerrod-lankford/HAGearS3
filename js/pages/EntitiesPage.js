@@ -44,7 +44,7 @@ var EntitiesPage = (function() {
 	 */
 	EntitiesPage.prototype.create = function(view) {
 		var entities = this.dataManager.getEntities()
-		createDom(entities, view);
+		createDom(view, entities, this.dataManager.getHiddenEntities());
 		registerEventHandlers(this.EntityPage, view, entities);
 		this.currentPage = view;
 	};
@@ -65,15 +65,35 @@ var EntitiesPage = (function() {
 		}
 	}
 
-	// Helper method to create the list dom from the entities
-	function createDom(entities, view) {
-		var filterString = EntityMetadata[view].name + ".";
-
-		var filteredEntities = entities.filter(function(entity){
-			if (entity.entity_id.startsWith(filterString)) {
-				return true;
+	function getFilterFunc(view, hiddenEntities){
+		if (view === "Hidden") {
+			return function(entity){
+				if (hiddenEntities.includes(entity.entity_id)) {
+					return true;
+				}
 			}
-		}).sort(function(entity1, entity2){
+		}
+		return function(entity){
+			if (! entity.entity_id.startsWith(EntityMetadata[view].name + '.')) {
+				return false;
+			}
+			if (hiddenEntities.includes(entity.entity_id)){
+				return false;
+			}
+			return true;
+		};
+	}
+
+	// Helper method to create the list dom from the entities
+	function createDom(view, entities, hiddenEntities) {
+		var filterFunc = getFilterFunc(view, hiddenEntities);
+		var filteredEntities = entities.filter(filterFunc).sort(function(entity1, entity2){
+			if (view === "Hidden") {
+				entity_id1 = entity1.entity_id.split(".", 1)[0]
+				entity_id2 = entity2.entity_id.split(".", 1)[0]
+				if (entity_id1 < entity_id2) return -1;
+				if (entity_id1 > entity_id2) return 1;
+			}
 			if (entity1.attributes.friendly_name.toLowerCase() < entity2.attributes.friendly_name.toLowerCase()) return -1;
 			if (entity1.attributes.friendly_name.toLowerCase() > entity2.attributes.friendly_name.toLowerCase()) return 1;
 			return 0;
@@ -100,6 +120,13 @@ var EntitiesPage = (function() {
 			})[0];
 
 			var metadata = EntityMetadata[view];
+			if (view === "Hidden"){
+				Object.keys(EntityMetadata).forEach(function(key,index) {
+					if (entity.entity_id.startsWith(EntityMetadata[key].name + '.')) {
+						metadata = EntityMetadata[key];
+					}
+				});
+			}
 
 			// We have to flip the value since the input has changed when we get the event
 			var selected = li.classList.contains("selected");
@@ -128,7 +155,13 @@ var EntitiesPage = (function() {
 				}
 			})[0];
 			var metadata = EntityMetadata[view];
-
+			if (view === "Hidden"){
+				Object.keys(EntityMetadata).forEach(function(key,index) {
+					if (entity.entity_id.startsWith(EntityMetadata[key].name + '.')) {
+						metadata = EntityMetadata[key];
+					}
+				});
+			}
 			entitiesPage.createEntityPage(EntityMetadata[metadata.title], entity);
 			tau.changePage('entity');
 		});
@@ -137,9 +170,21 @@ var EntitiesPage = (function() {
 	// Create a dom string representing an entity in the list
 	function createListItem (entity, view) {
 		var metadata = EntityMetadata[view];
+		if (view === "Hidden") {
+			// This makes the "Hidden" page much heavier to load, it is ok since we do not expect it to load often
+			Object.keys(EntityMetadata).forEach(function(key,index) {
+				if (entity.entity_id.startsWith(EntityMetadata[key].name + '.')) {
+					metadata = EntityMetadata[key];
+				}
+			});
+		}
+		var icon = metadata.defaultIcon;
+		// In case of the "hidden" view, we do not want to change the icon and keep the
+		// default one to show the category.
+		if (view !== "Hidden" && entity.attributes.icon) {
+			icon = entity.attributes.icon.replace(":", "-");
+		}
 		var selected = entity.state === metadata.selectedState ? "selected" : "";
-		var icon = (entity.attributes.icon && entity.attributes.icon.replace(":", "-")) ||
-		 	metadata.defaultIcon;
 		return TEMPLATE.replace(/%1/g, entity.entity_id)
 						.replace(/%2/g, entity.attributes.friendly_name)
 						.replace(/%3/g, metadata.name + '-icon-container')

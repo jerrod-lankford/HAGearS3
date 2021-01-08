@@ -5,15 +5,8 @@
 var DataManager = (function(){
 	function DataManager() {
 		// Load cached entities
-		var entitiesCache = localStorage.getItem('ha-entities');
-
-		if (entitiesCache) {
-			try {
-				this.entities = JSON.parse(entitiesCache);
-			} catch(err) {
-				// Ignore parse exception, we will just refetch
-			}
-		}
+		this.entities = loadEntities('ha-entities');
+		this.hiddenEntities = loadEntities('ha-hidden-entities');
 	}
 
 	DataManager.prototype.load = function(success, error) {
@@ -48,6 +41,47 @@ var DataManager = (function(){
 	DataManager.prototype.getEntities = function() {
 		return this.entities;
 	};
+
+	DataManager.prototype.getHiddenEntities = function(){
+		return this.hiddenEntities;
+	}
+
+	DataManager.prototype.saveHiddenEntities = function(){
+		// Remove duplicates (there should not be any)
+		// this.hiddenEntities = Array.from(Set(this.hiddenEntities).values())
+		// Save the list
+		localStorage.setItem('ha-hidden-entities',  JSON.stringify(this.hiddenEntities));
+	}
+
+	DataManager.prototype.addHiddenEntity = function(entityID){
+		if (this.hiddenEntities.includes(entityID)){
+			return;
+		}
+		this.hiddenEntities.push(entityID);
+		this.saveHiddenEntities();
+	}
+
+	DataManager.prototype.removeHiddenEntity = function(entityID){
+		if (! this.hiddenEntities.includes(entityID)){
+			return;
+		}
+		this.hiddenEntities = this.hiddenEntities.filter(function(item){return item !== entityID});
+		this.saveHiddenEntities();
+	}
+
+	loadEntities = function(storageKey){
+		var entities;
+		var entitiesCache = localStorage.getItem(storageKey);
+		if (entitiesCache) {
+			try {
+				return JSON.parse(entitiesCache);
+			} catch(err) {
+				// Ignore parse exception, Consider none is hidden
+				return [];
+			}
+		}
+		return [];
+	}
 
 	return DataManager;
 })();

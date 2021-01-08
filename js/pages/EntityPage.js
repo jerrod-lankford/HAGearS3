@@ -5,6 +5,19 @@
  */
 var EntityPage = (function() {
 
+	var templateHidden = [
+		'<li class="entity-attribute-item li-has-toggle" data-attribute="hidden">',
+			'<label>',
+				'<div class="name-container ui-marquee ui-marquee-gradient">',
+					"Hidden",
+				'</div>',
+				'<label class="switch %1">',
+					'<span class="slider round"></span>',
+				'</label>',
+			'</label>',
+		'</li>'
+	]
+
 	/**
 	 * Constructor
 	 * @param entity The json object with all of the entity information
@@ -37,8 +50,22 @@ var EntityPage = (function() {
 		var domString = "";
 		// Add additional functionalities
 
+		var checked = hiddenEntities.includes(entity.entity_id) ? "switch-checked" : "";
+		domString = domString + templateHidden.join('\n').replace(/%1/g, checked);
+
 		$('#entity-attribute-list').html(domString);
 		$('#entity-title').html(entity.attributes.friendly_name);
+	}
+
+	// Process the "Hidden" switch that controls the entity hiding
+	function processHidden(dataManager, entity_id, switchElement){
+		if (dataManager.getHiddenEntities().includes(entity_id)){
+			dataManager.removeHiddenEntity(entity_id);
+			switchElement.classList.remove("switch-checked");
+		} else {
+			dataManager.addHiddenEntity(entity_id);
+			switchElement.classList.add("switch-checked");
+		}
 	}
 
 	// Helper to register click handlers for the list items
@@ -47,7 +74,9 @@ var EntityPage = (function() {
 			var li = e.currentTarget;
 			var attribute = li.dataset.attribute;
 			switch(attribute){
-
+				case "hidden":
+					processHidden(dataManager, entity_id, li.getElementsByClassName("switch")[0]);
+					break;
 			}
 		});
 	}
