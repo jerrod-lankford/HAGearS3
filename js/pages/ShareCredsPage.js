@@ -71,8 +71,8 @@ var ShareCredsPage = (function() {
 				  var url = creds.url;
 				  var token = creds.token;
 
-				  $('#settings-url').val(url);
-				  $('#settings-token').val(token);
+				  $('#settings-url-input').val(url);
+				  $('#settings-token-input').val(token);
 			  }
 		  }
 		};

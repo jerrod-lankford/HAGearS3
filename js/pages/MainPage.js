@@ -4,12 +4,44 @@
 
 var MainPage = (function(){
 
+	var ItemTemplate = [
+		'<div class="ui-item" data-title="%1">',
+			'<div class="mdi %2 mdi-36px"></div>',
+		'</div>'
+	];
 	function MainPage(dataManager, entitiesPage) {
 		this.dataManager = dataManager;
 		this.entitiesPage = entitiesPage;
-		this.setupSelector();
+		this.createPage();
+
 	}
 
+	MainPage.prototype.createPage = function() {
+		createDom(this.dataManager.getHiddenTypes());
+		this.setupSelector();
+	};
+
+	// Helper method to create the list dom from the entities
+	function createDom(hiddenTypes) {
+		var domString = "";
+
+		var type;
+		for (type in EntityMetadata) {
+			if (!hiddenTypes.includes(type)){
+				domString = domString + ItemTemplate.join('\n').replace(/%1/g, type)
+					.replace(/%2/g, EntityMetadata[type].defaultIcon);
+			}
+		};
+
+		if (!hiddenTypes.includes("Hidden")){
+			domString = domString + ItemTemplate.join('\n').replace(/%1/g, "Hidden")
+				.replace(/%2/g, "mdi-eye-off");
+		}
+		domString = domString + ItemTemplate.join('\n').replace(/%1/g, "Settings")
+			.replace(/%2/g, "mdi-settings");
+
+		$('#main-nav').html(domString);
+	};
 
 	MainPage.prototype.mainPageNav = function(view) {
 		// Settings page has special handling, all other entities go through the EntitiesPage
@@ -19,8 +51,8 @@ var MainPage = (function(){
 			var url = creds.url;
 			var token = creds.token;
 
-			$('#settings-url').val(url);
-			$('#settings-token').val(token);
+			$('#settings-url-input').val(url);
+			$('#settings-token-input').val(token);
 		} else {
 			this.entitiesPage.create(view);
 			tau.changePage('entities');

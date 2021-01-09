@@ -36,18 +36,14 @@ var EntityPage = (function() {
 		this.currentPage = null;
 		this.dataManager = dataManager;
 
-		$('#entity-back-button').click(EntityBack);
-		$('#effects-back-button').click(EntityBack);
+		$('#entity-back-button').click(historyBack);
+		$('#effects-back-button').click(historyBack);
 
 		// Blank out the current page on hide
 		document.getElementById('entity').addEventListener("pagebeforehide", function() {
 			this.currentPage = null;
 		}.bind(this));
 
-	}
-
-	function EntityBack() {
-		history.back();
 	}
 
 	EntityPage.prototype.createEntityPage = function(metadata, entity) {

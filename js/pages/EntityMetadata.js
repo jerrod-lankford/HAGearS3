@@ -1,16 +1,4 @@
 var EntityMetadata = {
-	'Switches': {
-		name: 'switch',
-		title: 'Switches',
-		selectedState: 'on',
-		deselectedState: 'off',
-		select: HAServices.switchOn,
-		deselect: HAServices.switchOff,
-		defaultIcon: 'mdi-flash',
-		supports: [
-			"on-off"
-		]
-	},
 	'Lights': {
 		name: 'light',
 		title: 'Lights',
@@ -24,6 +12,18 @@ var EntityMetadata = {
 			"brightness",
 			"colour",
 			"effects"
+		]
+	},
+	'Switches': {
+		name: 'switch',
+		title: 'Switches',
+		selectedState: 'on',
+		deselectedState: 'off',
+		select: HAServices.switchOn,
+		deselect: HAServices.switchOff,
+		defaultIcon: 'mdi-flash',
+		supports: [
+			"on-off"
 		]
 	},
 	'Scripts': {

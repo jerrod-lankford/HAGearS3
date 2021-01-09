@@ -7,6 +7,7 @@ var DataManager = (function(){
 		// Load cached entities
 		this.entities = loadEntities('ha-entities');
 		this.hiddenEntities = loadEntities('ha-hidden-entities');
+		this.hiddenTypes = loadEntities('ha-hidden-types');
 	}
 
 	DataManager.prototype.load = function(success, error) {
@@ -62,11 +63,29 @@ var DataManager = (function(){
 	}
 
 	DataManager.prototype.removeHiddenEntity = function(entityID){
-		if (! this.hiddenEntities.includes(entityID)){
+		this.hiddenEntities = removeFromList(this.hiddenEntities, entityID);
+		this.saveHiddenEntities();
+	}
+
+	DataManager.prototype.getHiddenTypes = function(){
+		return this.hiddenTypes;
+	}
+
+	DataManager.prototype.saveHiddenTypes = function(){
+		localStorage.setItem('ha-hidden-types',  JSON.stringify(this.hiddenTypes));
+	}
+
+	DataManager.prototype.addHiddenType = function(type){
+		if (this.hiddenTypes.includes(type)){
 			return;
 		}
-		this.hiddenEntities = this.hiddenEntities.filter(function(item){return item !== entityID});
-		this.saveHiddenEntities();
+		this.hiddenTypes.push(type);
+		this.saveHiddenTypes();
+	}
+
+	DataManager.prototype.removeHiddenType = function(type){
+		this.hiddenTypes = removeFromList(this.hiddenTypes, type);
+		this.saveHiddenTypes();
 	}
 
 	loadEntities = function(storageKey){
@@ -82,6 +101,13 @@ var DataManager = (function(){
 		}
 		return [];
 	}
+
+	removeFromList = function(itemsList, item){
+		if (! itemsList.includes(item)){
+			return itemsList;
+		}
+		return itemsList.filter(function(el){return el !== item});
+	};
 
 	return DataManager;
 })();
