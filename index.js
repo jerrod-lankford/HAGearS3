@@ -19,6 +19,20 @@ $(function () {
 			hideSpinner();
 			entitiesPage.update();
 		}.bind(this), hideSpinner);
+
+		var reqAppControl = tizen.application.getCurrentApplication().getRequestedAppControl();
+
+		if (reqAppControl){
+			reqAppControl.appControl.data.filter(function(item) {
+				  return item.key === "entities"
+			}).forEach(function(item) {
+				if (item.value.length != 0) {
+					if (item.value[0] in EntityMetadata){
+						mainPage.mainPageNav(item.value[0]);
+					}
+				}
+			})
+		}
 	} else {
 		shareCredsPage.show();
 	}	

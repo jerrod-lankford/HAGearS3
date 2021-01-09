@@ -89,7 +89,7 @@ div.ui-selector div.ui-item .mdi {
 
 .ui-selector .ui-item-active[data-title="Lights"],
 .ui-listview li.selected .light-icon-container {
-    background-color: rgb(253, 216, 53) !important;
+    background-color: #fdd835 !important;
 }
 
 .ui-selector .ui-item-active[data-title="Switches"],
@@ -110,6 +110,11 @@ div.ui-selector div.ui-item .mdi {
 .ui-selector .ui-item-active[data-title="Groups"],
 .ui-listview li.selected .group-icon-container {
 	background-color: #0c0cce !important;
+}
+
+.ui-selector .ui-item-active[data-title="Scenes"],
+.ui-listview li.selected .scene-icon-container {
+	background-color: #cc0cbf !important;
 }
 
 #settings header {
