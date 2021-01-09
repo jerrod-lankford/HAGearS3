@@ -5,13 +5,13 @@
  */
 var EntityPage = (function() {
 
-	var templateHidden = [
-		'<li class="entity-attribute-item li-has-toggle" data-attribute="hidden">',
+	var templateSwitch = [
+		'<li class="entity-attribute-item li-has-toggle" data-attribute="%1">',
 			'<label>',
 				'<div class="name-container ui-marquee ui-marquee-gradient">',
-					"Hidden",
+					'%2',
 				'</div>',
-				'<label class="switch %1">',
+				'<label class="switch %3">',
 					'<span class="slider round"></span>',
 				'</label>',
 			'</label>',
@@ -41,17 +41,26 @@ var EntityPage = (function() {
 
 	EntityPage.prototype.createEntityPage = function(metadata, entity) {
 		createEntityDom(metadata, entity, this.dataManager.getHiddenEntities());
-		registerEntityEventHandlers(this.dataManager, entity.entity_id);
+		registerEntityEventHandlers(this.dataManager, entity, metadata);
 		this.currentPage = entity.attributes.friendly_name;
 	};
 
 	// Helper method to create the list dom from the entities
 	function createEntityDom(metadata, entity, hiddenEntities) {
 		var domString = "";
+
+		if (metadata.supports.includes("on-off")){
+			var checked = entity.state === metadata.selectedState ? "switch-checked" : "";
+			domString = domString + templateSwitch.join('\n').replace(/%1/g, "on-off")
+				.replace(/%2/g, "On/Off")
+				.replace(/%3/g, checked);
+		}
 		// Add additional functionalities
 
 		var checked = hiddenEntities.includes(entity.entity_id) ? "switch-checked" : "";
-		domString = domString + templateHidden.join('\n').replace(/%1/g, checked);
+		domString = domString + templateSwitch.join('\n').replace(/%1/g, "hidden")
+			.replace(/%2/g, "Hidden")
+			.replace(/%3/g, checked);
 
 		$('#entity-attribute-list').html(domString);
 		$('#entity-title').html(entity.attributes.friendly_name);
@@ -68,14 +77,36 @@ var EntityPage = (function() {
 		}
 	}
 
+	// Process the "On-Off" switch that controls the entity hiding
+	function processOnOff(metadata, entity, switchElement){
+		if (entity.state === metadata.selectedState) {
+			// TODO FIX makes assumptions that deselect is a function that needs to be invoked in the context of the services class
+			metadata.deselect.call(HAServices, entity.entity_id);
+			if (metadata.title != "Scenes") {
+				entity.state = metadata.deselectedState
+				switchElement.classList.remove("switch-checked");
+			}
+		} else {
+			// TODO FIX makes assumptions that deselect is a function that needs to be invoked in the context of the services class
+			metadata.select.call(HAServices, entity.entity_id);
+			if (metadata.title != "Scenes") {
+				entity.state = metadata.selectedState
+				switchElement.classList.add("switch-checked");
+			}
+		}
+	}
+
 	// Helper to register click handlers for the list items
-	function registerEntityEventHandlers(dataManager, entity_id) {
+	function registerEntityEventHandlers(dataManager, entity, metadata) {
 		$('.entity-attribute-item').click(function(e) {
 			var li = e.currentTarget;
 			var attribute = li.dataset.attribute;
 			switch(attribute){
 				case "hidden":
-					processHidden(dataManager, entity_id, li.getElementsByClassName("switch")[0]);
+					processHidden(dataManager, entity.entity_id, li.getElementsByClassName("switch")[0]);
+					break;
+				case "on-off":
+					processOnOff(metadata, entity, li.getElementsByClassName("switch")[0]);
 					break;
 			}
 		});
