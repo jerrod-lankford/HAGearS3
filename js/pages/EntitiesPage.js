@@ -38,11 +38,12 @@ var EntitiesPage = (function() {
 	
 	/**
 	 * Create an entity list and register the click handlers for each entity in the list
-	 * @param metadata View metadata
+	 * @param currentPage the title of the current page being displayed
 	 */
-	EntitiesPage.prototype.create = function(metadata) {
+	EntitiesPage.prototype.create = function(currentPage) {
+		var metadata = EntityMetadata[currentPage];
 		createDom(this.dataManager.getEntities(), metadata);
-		registerEventHandlers(metadata.select, metadata.deselect);
+		registerEventHandlers(metadata.select, metadata.deselect, currentPage);
 		this.currentPage = metadata.title;
 	};
 	
@@ -52,7 +53,7 @@ var EntitiesPage = (function() {
 	 */
 	EntitiesPage.prototype.update = function() {
 		if (this.currentPage) {
-			this.create(EntityMetadata[this.currentPage]);
+			this.create(this.currentPage);
 			
 			// This is necessary since we blow the dom away. It makes the snaplist work again
 			// The snaplist meaning, it selects an item as you scroll. Also handles marquee scrolling
@@ -85,7 +86,7 @@ var EntitiesPage = (function() {
 	}
 	
 	// Helper to register click handlers for the list items
-	registerEventHandlers = function(select, deselect) {
+	registerEventHandlers = function(select, deselect, currentPage) {
 		$('.entity-list-item').click(function(e) {
 			var li = e.currentTarget;
 			var entity_id = li.dataset.entityId;
@@ -94,11 +95,15 @@ var EntitiesPage = (function() {
 			if (selected) {
 				// TODO FIX makes assumptions that deselect is a function that needs to be invoked in the context of the services class
 				deselect.call(HAServices, entity_id);
-				li.classList.remove("selected");
+				if (currentPage != "Scenes") {
+					li.classList.remove("selected");
+				}
 			} else {
 				// TODO FIX makes assumptions that deselect is a function that needs to be invoked in the context of the services class
 				select.call(HAServices, entity_id);
-				li.classList.add("selected");
+				if (currentPage != "Scenes") {
+					li.classList.add("selected");
+				}
 			}
 		});
 	}

@@ -38,5 +38,15 @@ var EntityMetadata = {
 		select: HAServices.groupOn,
 		deselect: HAServices.groupOff,
 		defaultIcon: 'mdi-account-multiple'
+	},
+	'Scenes': {
+		name: 'scene',
+		title: 'Scenes',
+		// We do not want the scene to appear selected
+		// since they are always on
+		selectedState: '',
+		select: HAServices.sceneOn,
+		deselect: HAServices.sceneOn,
+		defaultIcon: 'mdi-palette'
 	}
 };
