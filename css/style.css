@@ -60,6 +60,17 @@ body {
 	text-align: left;
 }
 
+.list-item-container {
+	position: absolute;
+	left: 30px;
+	bottom: 26px;
+	width: 300px;
+	margin: auto;
+	margin-left: 10px;
+	overflow: hidden;
+	text-align: left;
+}
+
 .icon-container,
 div.ui-selector .ui-layer .ui-item {
 	color: white;

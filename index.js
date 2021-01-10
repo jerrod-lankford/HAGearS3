@@ -5,8 +5,7 @@ $(function () {
 
 	// Setup pages
 	var dataManager = new DataManager();
-	var entityPage = new EntityPage(dataManager);
-	var entitiesPage = new EntitiesPage(dataManager, entityPage);
+	var entitiesPage = new EntitiesPage(dataManager);
 	var mainPage = new MainPage(dataManager, entitiesPage);
 	var shareCredsPage = new ShareCredsPage(dataManager);
 	new SettingsPage(dataManager);

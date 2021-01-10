@@ -7,7 +7,7 @@ var EntitiesPage = (function() {
 
 	// Item template
 	var TEMPLATE = [
-		'<li class="li-has-toggle" >',
+		'<li id="entity-obj-%1" class="li-has-toggle" >',
 			'<label>',
 					'<div class="entity-list-item name-container ui-marquee ui-marquee-gradient" data-entity-id="%1">',
 						"%2",
@@ -22,10 +22,10 @@ var EntitiesPage = (function() {
 	 * Constructor
 	 * @param entity The json object with all of the entity information
 	 */
-	function EntitiesPage(dataManager, entityPage) {
+	function EntitiesPage(dataManager) {
 		this.currentPage = null;
 		this.dataManager = dataManager;
-		this.EntityPage = entityPage;
+		this.entityPage = new EntityPage(dataManager);
 
 		// Attach refresh click handler
 		$('#refresh-button').click(refresh.bind(this));
@@ -45,7 +45,7 @@ var EntitiesPage = (function() {
 	EntitiesPage.prototype.create = function(view) {
 		var entities = this.dataManager.getEntities()
 		createDom(view, entities, this.dataManager.getHiddenEntities());
-		registerEventHandlers(this.EntityPage, view, entities);
+		registerEventHandlers(this.entityPage, view, entities);
 		this.currentPage = view;
 	};
 
