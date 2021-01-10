@@ -12,4 +12,10 @@
     <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
     <tizen:profile name="wearable"/>
     <tizen:setting hwkey-event="enable"/>
+    <tizen:app-widget id="LhGPLdV8nG.HomeAssistant.HomeAssistantWidget" primary="true">
+        <tizen:widget-label>Home Assistant</tizen:widget-label>
+        <tizen:widget-content src="widget/HomeAssistantWidget/index.html">
+            <tizen:widget-size preview="widget/HomeAssistantWidget/images/screenshot.png">2x2</tizen:widget-size>
+        </tizen:widget-content>
+    </tizen:app-widget>
 </widget>

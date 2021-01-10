@@ -1,16 +1,16 @@
 // TODO Use some type of requireJs or custom stuff like settingsUI
-// require ViewMetadata from /js/view/ViewMetadata.js 
+// require ViewMetadata from /js/view/ViewMetadata.js
 $(function () {
 	var viewManager;
-	
+
 	// Setup pages
 	var dataManager = new DataManager();
 	var entitiesPage = new EntitiesPage(dataManager);
 	var mainPage = new MainPage(dataManager, entitiesPage);
 	var shareCredsPage = new ShareCredsPage(dataManager);
 	new SettingsPage(dataManager);
-	
-	
+
+
 	var runBefore = localStorage.getItem('ha-has-credentials');
 	if (runBefore) {
 		// Fetch initial data
@@ -19,10 +19,24 @@ $(function () {
 			hideSpinner();
 			entitiesPage.update();
 		}.bind(this), hideSpinner);
+
+		var reqAppControl = tizen.application.getCurrentApplication().getRequestedAppControl();
+
+		if (reqAppControl){
+			reqAppControl.appControl.data.filter(function(item) {
+				  return item.key === "entities"
+			}).forEach(function(item) {
+				if (item.value.length != 0) {
+					if (item.value[0] in EntityMetadata){
+						mainPage.mainPageNav(item.value[0]);
+					}
+				}
+			})
+		}
 	} else {
 		shareCredsPage.show();
-	}	
-	
+	}
+
 	// Handle hardware back button
 	document.addEventListener('tizenhwkey', function onTizenhwkey(e) {
         if (e.keyName === 'back') {
@@ -35,7 +49,7 @@ $(function () {
             }
         }
     });
-	
+
 	function hideSpinner() {
 		$('#main-spinner').addClass('hidden');
 	}
