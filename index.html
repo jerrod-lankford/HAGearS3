@@ -14,24 +14,6 @@
 	<!-- Main page -->
 	<div class="ui-page ui-page-active" id="main" data-enable-page-scroll="false">
 		<div id="main-nav" class="ui-content ui-selector">
-			<div class="ui-item" data-title="Lights">
-				<div class="mdi mdi-lightbulb mdi-36px"></div>
-			</div>
-			<div class="ui-item" data-title="Switches">
-				<div class="mdi mdi-flash mdi-36px"></div>
-			</div>
-			<div class="ui-item" data-title="Scripts">
-				<div class="mdi mdi-file-document mdi-36px"></div>
-			</div>
-			<div class="ui-item" data-title="Covers">
-				<div class="mdi mdi-blinds mdi-36px"></div>
-			</div>
-			<div class="ui-item" data-title="Groups">
-				<div class="mdi mdi-account-multiple mdi-36px"></div>
-			</div>
-			<div class="ui-item" data-title="Settings">
-				<div class="mdi mdi-settings mdi-36px"></div>
-			</div>
 		</div>
 		<div id="main-spinner" class="ui-processing ui-processing-full-size hidden"></div>
 	</div>
@@ -42,7 +24,7 @@
 		</header>
 		<div class="ui-content">
 			<ul id="entity-list" class="ui-listview ui-snap-listview">
-				
+
 			</ul>
 		</div>
 		<footer class="ui-footer ui-bottom-button">
@@ -50,23 +32,93 @@
 		</footer>
 		<div id="entity-spinner" class="ui-processing ui-processing-full-size hidden"></div>
 	</div>
+	<!-- Dedicated Entity page -->
+	<div id="entity" class="ui-page">
+		<header class="ui-header">
+			<h2 id="entity-title" class="ui-title">Entity</h2>
+		</header>
+		<div class="ui-content">
+			<ul id="entity-attribute-list" class="ui-listview ui-snap-listview">
+			</ul>
+		</div>
+		<footer class="ui-footer ui-bottom-button">
+			<button id="entity-back-button" class="ui-btn"><div class="mdi mdi-undo mdi-48px"></div></button>
+		</footer>
+	</div>
+	<!-- Effect page -->
+	<div id="effects" class="ui-page">
+		<header class="ui-header">
+			<h2 id="effects-title" class="ui-title">Effects</h2>
+		</header>
+		<div class="ui-content">
+			<ul id="effects-list" class="ui-listview ui-snap-listview">
+			</ul>
+		</div>
+		<footer class="ui-footer ui-bottom-button">
+			<button id="effects-back-button" class="ui-btn"><div class="mdi mdi-undo mdi-48px"></div></button>
+		</footer>
+	</div>
+	<!-- Settings page -->
 	<div id="settings" class="ui-page">
 		<header class="ui-header">
 			<h2 class="ui-title">Settings</h2>
 		</header>
 		<div class="ui-content">
-			<form action="" method="" class="settings-form">
-			   <label>HA Url: <input id="settings-url" type="url" placeholder="https://example.org"/></label>
-			   <label>Token: <input id="settings-token" type="text"/></label>
-			</form>
+			<ul id="settings-list" class="ui-listview ui-snap-listview">
+				<li id="settings-list-url"><div class="list-item-container">HA Url</div></li>
+				<li id="settings-list-token"><div class="list-item-container">HA Token</div></li>
+				<li id="settings-list-hidden"><div class="list-item-container">Hide categories</div></li>
+			</ul>
 		</div>
 	   <footer class="ui-footer ui-bottom-button">
-           <button id="settings-save-button" class="ui-btn">Save</button>
+           <button id="settings-save-button" class="ui-btn"><div class="mdi mdi-content-save mdi-48px"></button>
 	   </footer>
 	</div>
+	<!-- URL Settings page-->
+	<div id="settings-url" class="ui-page">
+		<header class="ui-header">
+			<h2 class="ui-title">HA URL</h2>
+		</header>
+		<div class="ui-content">
+			<form action="" method="" class="settings-form">
+				<input id="settings-url-input" type="url" placeholder="https://example.org"/>
+			</form>
+		</div>
+		<footer class="ui-footer ui-bottom-button">
+			<button id="settings-url-button" class="ui-btn"><div class="mdi mdi-undo mdi-48px"></div></button>
+		</footer>
+	</div>
+	<!-- Token Settings page-->
+	<div id="settings-token" class="ui-page">
+		<header class="ui-header">
+			<h2 class="ui-title">HA Token</h2>
+		</header>
+		<div class="ui-content">
+			<form action="" method="" class="settings-form">
+				<input id="settings-token-input" type="text"/>
+			</form>
+		</div>
+		<footer class="ui-footer ui-bottom-button">
+			<button id="settings-token-button" class="ui-btn"><div class="mdi mdi-undo mdi-48px"></div></button>
+		</footer>
+	</div>
+	<!-- Hidden types control page-->
+	<div id="hidden-types" class="ui-page">
+		<header class="ui-header">
+			<h2 id="hidden-types-title" class="ui-title">Categories</h2>
+		</header>
+		<div class="ui-content">
+			<ul id="hidden-types-list" class="ui-listview ui-snap-listview">
+			</ul>
+		</div>
+		<footer class="ui-footer ui-bottom-button">
+			<button id="hidden-types-back-button" class="ui-btn"><div class="mdi mdi-undo mdi-48px"></div></button>
+		</footer>
+	</div>
+	<!-- Error popup -->
 	<div id="error-popup" class="ui-popup">
 		<div id="error-popup-contents" class="ui-popup-content">
-			
+
 		</div>
 		<div class="ui-popup-footer ui-bottom-button">
 			<a id="error-popup-cancel" href="#" class="ui-btn" data-rel="back">OK</a>
@@ -74,7 +126,7 @@
 	</div>
 	<div id="share-creds" class="ui-popup">
 		<div id="share-creds-contents" class="ui-popup-content">
-		
+
 		</div>
 		<div class="ui-popup-footer ui-bottom-button">
 			<a id="share-creds-ok" href="#" class="ui-btn">OK</a>
@@ -91,6 +143,7 @@
 	<!-- Pages -->
 	<script type="text/javascript" src="js/pages/ShareCredsPage.js"></script>
 	<script type="text/javascript" src="js/pages/EntityMetadata.js"></script>
+	<script type="text/javascript" src="js/pages/EntityPage.js"></script>
 	<script type="text/javascript" src="js/pages/EntitiesPage.js"></script>
 	<script type="text/javascript" src="js/pages/MainPage.js"></script>
 	<script type="text/javascript" src="js/pages/SettingsPage.js"></script>
